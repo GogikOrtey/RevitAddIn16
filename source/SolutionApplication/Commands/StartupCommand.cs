@@ -20,8 +20,9 @@ namespace SolutionApplication.Commands
             Reference myRef = uidoc.Selection.PickObject(ObjectType.Element, "Выберите элемент для вывода его Id");
             Element element = doc.GetElement(myRef);
             ElementId id = element.Id;
+            string categoryElement = element.Category.Name.ToString();
 
-            TaskDialog.Show("Информация", $"Id элемента: {id.ToString()}");
+            TaskDialog.Show("Информация", $"Id элемента: {id.ToString()}" + $"\n\nТип элемента: {categoryElement}");
 
             return Result.Succeeded;
         }
