@@ -43,16 +43,23 @@ namespace SolutionApplication.Commands
             ElementId id = element.Id;
             string categoryElement = element.Category.Name.ToString();
 
+            double height = 0;
+
             if (categoryElement == "Walls")
             {
-                TaskDialog.Show("Информация", "Элемент является стеной, вычисление высоты будет корректным");
+                //TaskDialog.Show("Информация", "Элемент является стеной, вычисление высоты будет корректным");
+                height = element.get_Parameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).AsDouble();
+
+                height = ConvertFootToMeters(height);
+
+                TaskDialog.Show("Информация", "height стены = " + height + " метров");
             }
             else
             {
                 TaskDialog.Show("Информация", "Элемент НЕ является стеной!\n\ncategoryElement = " + categoryElement);
             }
 
-            return 0f;
+            return height;
         }
 
 
