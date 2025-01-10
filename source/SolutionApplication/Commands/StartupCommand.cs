@@ -1,19 +1,29 @@
 ﻿using Autodesk.Revit.Attributes;
-using Module_1.ViewModels;
-using Module_1.Views;
+using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Selection;
 using Nice3point.Revit.Toolkit.External;
 
 namespace SolutionApplication.Commands
 {
     [UsedImplicitly]
     [Transaction(TransactionMode.Manual)]
-    public class StartupCommand : ExternalCommand
+
+
+    // Этот модуль выводит информацию об объекте по нажатию на него мышкой
+    public class StartupCommand : IExternalCommand
     {
-        public override void Execute()
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            var viewModel = new Module_1ViewModel();
-            var view = new Module_1View(viewModel);
-            view.ShowDialog();
+            UIDocument uidoc = commandData.Application.ActiveUIDocument;
+            Document doc = uidoc.Document;
+
+            Reference myRef = uidoc.Selection.PickObject(ObjectType.Element, "Выберите элемент для вывода его Id");
+            Element element = doc.GetElement(myRef);
+            ElementId id = element.Id;
+
+            TaskDialog.Show("Информация", $"Id элемента: {id.ToString()}");
+
+            return Result.Succeeded;
         }
     }
 }
