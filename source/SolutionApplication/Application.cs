@@ -17,7 +17,7 @@ namespace SolutionApplication
 
             panel.AddPushButton<StartupCommand>("Кнопка 1")
                 .SetImage("/SolutionApplication;component/Resources/Icons/RibbonIcon16.png")
-                .SetLargeImage("/SolutionApplication;component/Resources/Icons/RibbonIcon32.png");
+                .SetLargeImage("/SolutionApplication;component/Resources/Icons/RibbonIcon32.png"); 
         }
     }
 }
