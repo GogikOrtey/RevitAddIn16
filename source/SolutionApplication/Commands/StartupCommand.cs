@@ -44,15 +44,25 @@ namespace SolutionApplication.Commands
             string categoryElement = element.Category.Name.ToString();
 
             double height = 0;
+            double width = 0;
+            double weight = 0;
 
             if (categoryElement == "Walls")
             {
-                //TaskDialog.Show("Информация", "Элемент является стеной, вычисление высоты будет корректным");
+                // wall width
+
+                // wall height
+
                 height = element.get_Parameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).AsDouble();
+                height = ConvertFootToMeters(height);               
 
-                height = ConvertFootToMeters(height);
+                // wall weight
 
-                TaskDialog.Show("Информация", "height стены = " + height + " метров");
+
+                TaskDialog.Show("Информация",
+                    "wall width = " + width + "метров" +
+                    "\nwall height = " + height + " метров" +
+                    "\nwall weight = " + weight + "метров");
             }
             else
             {
