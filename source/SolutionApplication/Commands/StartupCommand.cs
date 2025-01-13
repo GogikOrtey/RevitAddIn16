@@ -43,26 +43,43 @@ namespace SolutionApplication.Commands
             ElementId id = element.Id;
             string categoryElement = element.Category.Name.ToString();
 
-            double height = 0;
+            double length = 0;
+            double height = 0;            
             double width = 0;
-            double weight = 0;
 
             if (categoryElement == "Walls")
             {
-                // wall width
+                // wall length - длинна 
 
-                // wall height
+                length = element.get_Parameter(BuiltInParameter.CURVE_ELEM_LENGTH).AsDouble();
+                length = ConvertFootToMeters(length);
+
+                // wall height - высота
 
                 height = element.get_Parameter(BuiltInParameter.WALL_USER_HEIGHT_PARAM).AsDouble();
-                height = ConvertFootToMeters(height);               
+                height = ConvertFootToMeters(height);
 
-                // wall weight
+                // wall width - ширина (глубина)
+
+                //width = element.LookupParameter("Width").AsDouble();
+                // Definition: HOST_VOLUME_COMPUTED / 
+                // Definition: WALL_ATTR_WIDTH_PARAM
+
+                //width = element.get_Parameter(BuiltInParameter.WALL_ATTR_WIDTH_PARAM).AsDouble();
+
+                Wall wall = (Wall)element;
+                WallType wallType = wall.WallType; // Получаю тип стены
+
+                // И у типа стены уже есть параметр width
+                width = wallType.get_Parameter(BuiltInParameter.WALL_ATTR_WIDTH_PARAM).AsDouble();
+
+                width = ConvertFootToMeters(width);
 
 
                 TaskDialog.Show("Информация",
-                    "wall width = " + width + "метров" +
+                    "wall length = " + length + " метров" +
                     "\nwall height = " + height + " метров" +
-                    "\nwall weight = " + weight + "метров");
+                    "\nwall width = " + width + " метров");
             }
             else
             {
