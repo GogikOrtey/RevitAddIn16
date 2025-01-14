@@ -36,6 +36,11 @@ namespace SolutionApplication.Commands
             // Этот класс находится в файле GetDimensionsElement.cs, в модуле SolutionApplication
             // (он находится рядом с файлом Application.cs)
 
+            // Преобразуем в см
+            length = length * 10;
+            height = height * 10;
+            width = width * 10;
+
             TaskDialog.Show("Информация",
                 "Вычисление через абстракнтый класс: " +
                 "\n\nheight (высота) = " + height + " см" +
