@@ -143,46 +143,71 @@ namespace SolutionApplication.Commands
 
 
 
+                //// width - ширина (глубина)
+
+                //// Проверяем, является ли элемент экземпляром семейства и категорией окон
+                //if (element is FamilyInstance familyInstance && familyInstance.Category.Id.IntegerValue == (int)BuiltInCategory.OST_Windows)
+                //{
+                //    // Получаем элемент-хозяина (host) для окна
+                //    Element hostElement = familyInstance.Host;
+
+                //    if (hostElement is Wall)
+                //    {
+                //        Wall hostWall = (Wall)hostElement;
+                //        //TaskDialog.Show("Стенка-хозяин", "Id стенки-хозяина: " + hostWall.Id);
+
+                //        WallType wallType = hostWall.WallType;
+                //        width = wallType.get_Parameter(BuiltInParameter.WALL_ATTR_WIDTH_PARAM).AsDouble();
+                //        buferWidth = width;
+                //        width = ConvertFootToMeters(width);
+                //    }
+                //    else
+                //    {
+                //        TaskDialog.Show("Ошибка", "Окно не прикреплено к стене.");
+                //    }
+                //}
+                //else
+                //{
+                //    TaskDialog.Show("Ошибка", "Выбранный элемент не является окном.");
+                //}
+
+
+
+                // Получаем ограничивающую рамку объекта
+                BoundingBoxXYZ boundingBox = element.get_BoundingBox(null);
+
+                double Blength = 0;
+                double buferLength = 0;
+
+                if (boundingBox != null)
+                {
+                    XYZ minPoint = boundingBox.Min;
+                    XYZ maxPoint = boundingBox.Max;
+
+                    // И вычисляем значени по длине, ширине и высоте
+                    Blength = maxPoint.Y - minPoint.Y;
+                }
+
+                buferLength = Blength;
+                Blength = ConvertFootToMeters(Blength);
+
                 // width - ширина (глубина)
 
-                // Проверяем, является ли элемент экземпляром семейства и категорией окон
-                if (element is FamilyInstance familyInstance && familyInstance.Category.Id.IntegerValue == (int)BuiltInCategory.OST_Windows)
-                {
-                    // Получаем элемент-хозяина (host) для окна
-                    Element hostElement = familyInstance.Host;
+                width = element.get_Parameter(BuiltInParameter.HOST_VOLUME_COMPUTED).AsDouble();
+                width = width / buferHeight / buferLength;
+                width = ConvertFootToMeters(width);
 
-                    if (hostElement is Wall)
-                    {
-                        Wall hostWall = (Wall)hostElement;
-                        //TaskDialog.Show("Стенка-хозяин", "Id стенки-хозяина: " + hostWall.Id);
-
-                        WallType wallType = hostWall.WallType;
-                        width = wallType.get_Parameter(BuiltInParameter.WALL_ATTR_WIDTH_PARAM).AsDouble();
-                        buferWidth = width;
-                        width = ConvertFootToMeters(width);
-                    }
-                    else
-                    {
-                        TaskDialog.Show("Ошибка", "Окно не прикреплено к стене.");
-                    }
-                }
-                else
-                {
-                    TaskDialog.Show("Ошибка", "Выбранный элемент не является окном.");
-                }
-
-
-                length = length / buferHeight / buferWidth;
-                length = ConvertFootToMeters(length);
+                //length = length / buferHeight / buferWidth;
+                //length = ConvertFootToMeters(length);
 
                 // Преобразуем в см
-                length = length * 10;
+                Blength = Blength * 10;
                 height = height * 10;
                 width  = width  * 10;
 
 
                 TaskDialog.Show("Информация",
-                    "windows length = " + length + " см" +
+                    "windows length = " + Blength + " см" +
                     "\nwindows height = " + height + " см" +
                     "\nwindows width = " + width + " см");
             }
@@ -266,8 +291,8 @@ namespace SolutionApplication.Commands
                 // Получаем ограничивающую рамку объекта
                 BoundingBoxXYZ boundingBox = element.get_BoundingBox(null);
 
-                double Bwidth = 0;
-                double Bheight = 0;
+                //double Bwidth = 0;
+                //double Bheight = 0;
                 double Blength = 0;
 
                 if (boundingBox != null)
@@ -276,15 +301,15 @@ namespace SolutionApplication.Commands
                     XYZ maxPoint = boundingBox.Max;
 
                     // И вычисляем значени по длине, ширине и высоте
-                    Bwidth = maxPoint.X - minPoint.X;
+                    //Bwidth = maxPoint.X - minPoint.X;
                     Blength = maxPoint.Y - minPoint.Y;
-                    Bheight = maxPoint.Z - minPoint.Z;
+                    //Bheight = maxPoint.Z - minPoint.Z;
                 }
 
                 buferLength = Blength;
 
-                Bwidth = ConvertFootToMeters(Bwidth);
-                Bheight = ConvertFootToMeters(Bheight);
+                //Bwidth = ConvertFootToMeters(Bwidth);
+                //Bheight = ConvertFootToMeters(Bheight);
                 Blength = ConvertFootToMeters(Blength);
 
                 // width - ширина (глубина)
@@ -298,8 +323,8 @@ namespace SolutionApplication.Commands
                 height = height * 10;
                 width = width * 10;
 
-                Bwidth = Bwidth * 10;
-                Bheight = Bheight * 10;
+                //Bwidth = Bwidth * 10;
+                //Bheight = Bheight * 10;
                 Blength = Blength * 10;
 
                 TaskDialog.Show("Информация",
