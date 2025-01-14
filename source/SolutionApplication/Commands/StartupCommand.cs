@@ -14,7 +14,6 @@ namespace SolutionApplication.Commands
     [UsedImplicitly]
     [Transaction(TransactionMode.Manual)]
 
-
     // Этот модуль выводит информацию об объекте по нажатию на него мышкой
     public class StartupCommand : IExternalCommand
     {
@@ -25,81 +24,28 @@ namespace SolutionApplication.Commands
 
             Reference myRef = uidoc.Selection.PickObject(ObjectType.Element, "Выберите элемент для вывода его Id");
             Element element = doc.GetElement(myRef);
-            ElementId id = element.Id;
-            string categoryElement = element.Category.Name.ToString();
 
-            //TaskDialog.Show("Информация", $"Id элемента: {id.ToString()}" + $"\n\nТип элемента: {categoryElement}");
-            //Parameter widthParam = element.LookupParameter("Width");
-            //TaskDialog.Show("Информация", $"Width элемента = {widthParam.ToString()}");
+            //// Вычисление через обычный метод (также корректно работает)
+            //GetHeightWall(element);
 
-            GetHeightWall(element);
-
-            // Получение длины объекта element
+            // Получение размеров объекта element, через методы абстрактного класса ElementProcessor
             double length = ElementProcessor.GetLength(element);
-            TaskDialog.Show("Информация", "length(element) = " + length);
+            double height = ElementProcessor.GetHeight(element);
+            double width = ElementProcessor.GetWidth(element);
+
+            // Этот класс находится в файле GetDimensionsElement.cs, в модуле SolutionApplication
+            // (он находится рядом с файлом Application.cs)
+
+            TaskDialog.Show("Информация",
+                "Вычисление через абстракнтый класс: " +
+                "\n\nheight (высота) = " + height + " см" +
+                "\nlength (длина) = " + length + " см" +
+                "\nwidth (ширина/толщина) = " + width + " см");
 
             return Result.Succeeded;
         }
 
-        public double GetDimensionsObject(Element element)
-        {
-            // Получаем ограничивающую рамку объекта
-            BoundingBoxXYZ boundingBox = element.get_BoundingBox(null);
-
-            double Bwidth = 0;
-            double Bheight = 0;
-            double Blength = 0;
-
-            if (boundingBox != null)
-            {
-                XYZ minPoint = boundingBox.Min;
-                XYZ maxPoint = boundingBox.Max;
-
-                // И вычисляем значени по длине, ширине и высоте
-                Bwidth = maxPoint.X - minPoint.X;
-                Blength = maxPoint.Y - minPoint.Y;
-                Bheight = maxPoint.Z - minPoint.Z;
-            }
-
-            Bwidth = ConvertFootToMeters(Bwidth);
-            Bheight = ConvertFootToMeters(Bheight);
-            Blength = ConvertFootToMeters(Blength);
-
-            Bwidth = Bwidth * 10;
-            Bheight = Bheight * 10;
-            Blength = Blength * 10;
-
-            TaskDialog.Show("Информация",
-                "height (высота) = " + Bheight + " см" +
-                "\nlength (длина) = " + Blength + " см" +
-                "\nwidth (ширина/толщина) = " + Bwidth + " см");
-
-            return 0;
-        }
-
-        //public void ProcObjForHisType(Element element)
-        //{
-        //    ElementId id = element.Id;
-        //    string categoryElement = element.Category.Name.ToString();
-
-        //    if (categoryElement == "Walls")
-        //    {
-        //        Wall wall = (Wall)element;
-        //    }
-        //    else if (categoryElement == "Windows")
-        //    {
-        //        Window window = (Window)element;
-        //    }
-        //    else if (categoryElement == "Doors")
-        //    {
-                
-        //    }
-        //    else
-        //    {
-        //        TaskDialog.Show("Информация", "Неизвестный тип элемента!\n\ncategoryElement = " + categoryElement);
-        //    }
-        //}
-
+        
         // Получение длины ширины и высоты объекта
         // Обработка разными методами, в зависимости от типа объекта
         public double GetHeightWall(Element element)
@@ -248,6 +194,45 @@ namespace SolutionApplication.Commands
             return height;
         }
 
+
+
+        //// Попытка вычисления размеров объекта через ограничивающую рамку
+        //public double GetDimensionsObject(Element element)
+        //{
+        //    // Получаем ограничивающую рамку объекта
+        //    BoundingBoxXYZ boundingBox = element.get_BoundingBox(null);
+
+        //    double Bwidth = 0;
+        //    double Bheight = 0;
+        //    double Blength = 0;
+
+        //    if (boundingBox != null)
+        //    {
+        //        XYZ minPoint = boundingBox.Min;
+        //        XYZ maxPoint = boundingBox.Max;
+
+        //        // И вычисляем значени по длине, ширине и высоте
+        //        Bwidth = maxPoint.X - minPoint.X;
+        //        Blength = maxPoint.Y - minPoint.Y;
+        //        Bheight = maxPoint.Z - minPoint.Z;
+        //    }
+
+        //    Bwidth = ConvertFootToMeters(Bwidth);
+        //    Bheight = ConvertFootToMeters(Bheight);
+        //    Blength = ConvertFootToMeters(Blength);
+
+        //    Bwidth = Bwidth * 10;
+        //    Bheight = Bheight * 10;
+        //    Blength = Blength * 10;
+
+        //    TaskDialog.Show("Информация",
+        //        "height (высота) = " + Bheight + " см" +
+        //        "\nlength (длина) = " + Blength + " см" +
+        //        "\nwidth (ширина/толщина) = " + Bwidth + " см");
+
+        //    return 0;
+        //    // Результаты оказались некорректны
+        //}
 
 
 
