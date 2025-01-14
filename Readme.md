@@ -7,7 +7,7 @@
 
 #### Что сделал:
 
-Создал абстрактный класс BuildingElement (в файле GetDimensionsElement.cs), в котором реализолвал методы GetLength, GetHeight, GetWidth, для объектов типа стена, окно и дверь:
+Создал абстрактный класс BuildingElement (в файле GetDimensionsElement.cs), в котором реализолвал методы GetLength, GetHeight, GetWidth, для объектов типа стена, окно и дверь. Объект выбирается нажатием мышки
 
 ![](pic1.png)
 
