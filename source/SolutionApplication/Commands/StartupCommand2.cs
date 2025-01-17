@@ -3,6 +3,8 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
+using Module_2.ViewModels;
+using Module_2.Views;
 
 namespace SolutionApplication.Commands
 {
@@ -21,6 +23,14 @@ namespace SolutionApplication.Commands
             Element element = doc.GetElement(myRef);
 
             string idElement = element.Id.ToString();
+
+            /////   Открытие визуального окна
+
+            var viewModel = new Module_2ViewModel();
+            var view = new Module_2View(viewModel);
+            view.ShowDialog();
+
+            /////
 
             TaskDialog.Show("Информация", "id объекта = " + idElement);          
 

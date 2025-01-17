@@ -11,12 +11,15 @@
     WindowStartupLocation="CenterScreen"
     Title="Module_2"
     Height="450"
-    Width="800">
+    Width="309">
     <Grid>
-        <TextBlock
-            Text="Module_2"
-            FontSize="60"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Text="Добавить комментарий" HorizontalAlignment="Center" Height="30" Margin="0,22,0,0" VerticalAlignment="Top" Width="220" TextAlignment="Center" LineHeight="NaN" FontSize="16"/>
+        <TextBlock HorizontalAlignment="Center" Height="30" Margin="0,80,0,0" VerticalAlignment="Top" Width="220" LineHeight="NaN" FontSize="16"><Run Language="ru-ru" Text="К объекту: "/><Run Text="Wall"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Height="30" Margin="0,115,0,0" VerticalAlignment="Top" Width="220" LineHeight="NaN" FontSize="16"><Run Text="id "/><Run Language="ru-ru" Text="объекта: 321321"/></TextBlock>
+        <Button Content="Добавить комментарий" HorizontalAlignment="Center" Height="38" Margin="0,372,0,0" VerticalAlignment="Top" Width="220" Background="#FF25B4FF" FontSize="14"/>
     </Grid>
 </Window>
