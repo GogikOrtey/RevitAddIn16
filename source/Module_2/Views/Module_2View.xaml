@@ -18,8 +18,10 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Text="Добавить комментарий" HorizontalAlignment="Center" Height="30" Margin="0,22,0,0" VerticalAlignment="Top" Width="220" TextAlignment="Center" LineHeight="NaN" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Center" Height="30" Margin="0,80,0,0" VerticalAlignment="Top" Width="220" LineHeight="NaN" FontSize="16"><Run Language="ru-ru" Text="К объекту: "/><Run Text="Wall"/></TextBlock>
-        <TextBlock HorizontalAlignment="Center" Height="30" Margin="0,115,0,0" VerticalAlignment="Top" Width="220" LineHeight="NaN" FontSize="16"><Run Text="id "/><Run Language="ru-ru" Text="объекта: 321321"/></TextBlock>
-        <Button Content="Добавить комментарий" HorizontalAlignment="Center" Height="38" Margin="0,372,0,0" VerticalAlignment="Top" Width="220" Background="#FF25B4FF" FontSize="14"/>
+        <TextBlock HorizontalAlignment="Center" Height="30" Margin="0,63,0,0" VerticalAlignment="Top" Width="220" LineHeight="NaN" FontSize="16"><Run Language="ru-ru" Text="К объекту: "/><Run Text="Wall"/></TextBlock>
+        <TextBlock HorizontalAlignment="Center" Height="30" Margin="0,98,0,0" VerticalAlignment="Top" Width="220" LineHeight="NaN" FontSize="16"><Run Text="id "/><Run Language="ru-ru" Text="объекта: 321321"/></TextBlock>
+        <Button Content="Добавить комментарий" HorizontalAlignment="Center" Height="38" Margin="0,349,0,0" VerticalAlignment="Top" Width="220" Background="#FF25B4FF" FontSize="14"/>
+        <TextBox HorizontalAlignment="Center" Height="169" Margin="0,171,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="220" ToolTip="Можете написать, что этот объект нужно переделать, или как-то изменить"/>
+        <TextBlock HorizontalAlignment="Center" Height="14" Margin="0,151,0,0" VerticalAlignment="Top" Width="220" LineHeight="NaN" FontSize="11"><Run Language="ru-ru" Text="Введите ваш комментарий в поле ниже:"/></TextBlock>
     </Grid>
 </Window>

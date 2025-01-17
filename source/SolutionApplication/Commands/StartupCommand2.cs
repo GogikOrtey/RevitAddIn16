@@ -11,7 +11,8 @@ namespace SolutionApplication.Commands
     [UsedImplicitly]
     [Transaction(TransactionMode.Manual)]
 
-    // Этот модуль выводит информацию об объекте по нажатию на него мышкой
+    // Этот модуль устанавливает комментарий объекту, по нажатию на него мышкой
+    // Комментарий задаётся здесь, в коде
     public class StartupCommand2 : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -19,20 +20,9 @@ namespace SolutionApplication.Commands
             UIDocument uidoc = commandData.Application.ActiveUIDocument;
             Autodesk.Revit.DB.Document doc = uidoc.Document;
 
-            Reference myRef = uidoc.Selection.PickObject(ObjectType.Element, "Выберите элемент для вывода его Id");
+            Reference myRef = uidoc.Selection.PickObject(ObjectType.Element, "Выберите элемент для добавления комментария к нему");
             Element element = doc.GetElement(myRef);
-
-            string idElement = element.Id.ToString();
-
-            /////   Открытие визуального окна
-
-            var viewModel = new Module_2ViewModel();
-            var view = new Module_2View(viewModel);
-            view.ShowDialog();
-
-            /////
-
-            TaskDialog.Show("Информация", "id объекта = " + idElement);          
+            string idElement = element.Id.ToString();     
 
             // Создаем транзакцию, для добавления комментария к объекту
             using (Transaction transaction = new Transaction(doc, "Add Comment"))
@@ -46,7 +36,7 @@ namespace SolutionApplication.Commands
                 }
                 catch
                 {
-                    TaskDialog.Show("Информация", "При добавлении комментария к объекту с id = " + idElement + ", произошла ошибка!\n\nКомментарий не добавлен");
+                    TaskDialog.Show("Информация", "При добавлении комментария к объекту с id = " + idElement + ", произошла ошибка!\n\nКомментарий не добавлен.");
                     transaction.RollBack();
                     throw;
                 }
@@ -59,13 +49,17 @@ namespace SolutionApplication.Commands
     // Создаём метод расширения для встроенного класса Element
     public static class ElementExtensions
     {
+        // Метод для добавления комментариев к объекту
         public static void AddComment(this Element element, string comment)
         {
-            // Параметр "Комментарии" имеет встроенное имя "ALL_MODEL_INSTANCE_COMMENTS".
+            // Эта процедура вызывается так:
+            // element.AddComment("Комментарий 1");
+
+            // Параметр комментарий = ALL_MODEL_INSTANCE_COMMENTS
             Parameter commentParameter = element.get_Parameter(BuiltInParameter.ALL_MODEL_INSTANCE_COMMENTS);
             if (commentParameter != null && !commentParameter.IsReadOnly)
             {
-                // Установим значение параметра "Комментарии".
+                // Установка значения параметра "комментарий"
                 commentParameter.Set(comment);
             }
         }
