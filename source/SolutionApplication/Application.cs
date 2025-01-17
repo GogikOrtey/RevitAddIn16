@@ -15,9 +15,13 @@ namespace SolutionApplication
         {
             var panel = Application.CreatePanel("Commands", "RevitAddIn16");
 
-            panel.AddPushButton<StartupCommand>("Кнопка 1")
+            panel.AddPushButton<StartupCommand>("Получить размеры объекта")
                 .SetImage("/SolutionApplication;component/Resources/Icons/RibbonIcon16.png")
-                .SetLargeImage("/SolutionApplication;component/Resources/Icons/RibbonIcon32.png"); 
+                .SetLargeImage("/SolutionApplication;component/Resources/Icons/RibbonIcon32.png");
+
+            panel.AddPushButton<StartupCommand2>("Добавить комментарий к объекту")
+                .SetImage("/SolutionApplication;component/Resources/Icons/RibbonIcon16.png")
+                .SetLargeImage("/SolutionApplication;component/Resources/Icons/RibbonIcon32.png");
         }
     }
 }
