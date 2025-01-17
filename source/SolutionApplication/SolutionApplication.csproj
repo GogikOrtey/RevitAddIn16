@@ -47,6 +47,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Module_1\Module_1.csproj" />
+      <ProjectReference Include="..\Module_2\Module_2.csproj" />
     </ItemGroup>
 
     <ItemGroup>
